@@ -1,6 +1,17 @@
-<li>
-  <h2>{{ celeb.name }} , {{ celeb.age }}</h2><br>
-  <img src=" {{ celeb.image }}" /> <br>
-  <p> {{celeb.bio }} </p>
+<!--<h2>{{ person.name }}, {{ person.age }}</h2>
+<p>{{ person.bio }}</p>
+( <a ng-click="removePerson( person )">delete</a> )-->
 
-</li>
+
+<form ng-submit="updatePerson()">
+<br />
+
+  <input ng-model="person.name" type="text" value="{{ person.name }}" /><br /><br />
+
+  <input ng-model="person.age" type="text" value="{{ person.age}}" /><br /><br />
+
+  <textarea ng-model="person.bio" value="{{ person.bio}}"></textarea><br /><br />
+
+  <button>Update Person</button>
+
+</form>

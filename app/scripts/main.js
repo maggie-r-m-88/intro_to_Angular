@@ -1,30 +1,28 @@
-(function () {
+(function (){
 
+  angular.module('PeopleList', ['ngRoute'])
 
-  var app = angular.module('CelebList', ['ngRoute', 'restangular']);
+  .constant ({
+    'appUrl': 'http://tiy-atl-fe-server.herokuapp.com/collections/magpeople22/'
+  })
 
-  app.config( function ($routeProvider, RestangularProvider) {
-
-    RestangularProvider.setBaseUrl('http://tiy-atl-fe-server.herokuapp.com/collections/');
-
+  .config( function ($routeProvider) {
 
     $routeProvider.when('/', {
       templateUrl: 'templates/home.html',
-      controller: 'CelebsController'
-    });
-
-    $routeProvider.when('/single/:id', {
-      templateUrl: 'templates/single.html',
-      controller: 'SingleController'
+      controller: 'ListController'
     });
 
     $routeProvider.when('/add', {
       templateUrl: 'templates/add.html',
-      controller: 'CelebsController'
-    })
+      controller: 'AddController'
+    });
+
+    $routeProvider.when('/single/:pid', {
+      templateUrl: 'templates/single.html',
+      controller: 'SingleController'
+    });
 
   });
-
-
 
 }());

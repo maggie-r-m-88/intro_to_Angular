@@ -1,15 +1,15 @@
 (function (){
 
-  angular.module('CelebList')
+  angular.module('PeopleList')
 
   .controller('ListController',
-    ['celebsFactory', '$scope', '$location',  '$rootScope', function (celebsFactory, $scope, $location, $rootScope) {
+    ['$scope', '$http', '$location', 'appUrl', function ($scope, $http, $location, appUrl) {
 
-    celebsFactory.getCelebs().then( function (results){
-      $scope.celebs = results;
+    $http.get(appUrl).success( function (results){
+      $scope.people = results;
     });
 
-    $scope.viewMore = function (celeb) {
+    $scope.viewMore = function (person) {
       $location.path('/single/' + person._id);
     };
 
