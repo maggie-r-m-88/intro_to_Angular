@@ -7,39 +7,68 @@ body {
   background: #fafafa;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
+
 }
 
 .hero-unit {
-  margin: 50px auto 0 auto;
-  width: 800px;
+  margin: 10px auto 0 auto;
+  width: 850px;
   font-size: 18px;
   font-weight: 200;
   line-height: 30px;
-  background-color: hsla(167, 100%, 50%, 1);
+
   border-radius: 6px;
   padding: 60px;
+  nav{
 
+    text-align: center;
+    a{
+      color: black;
+    }
+  }
   h1 {
     font-size: 60px;
     line-height: 1;
+    text-align: center;
     letter-spacing: -1px;
   }
   a{
+
     font-weight: bold;
     text-decoration: none;
   }
   a:hover{
     text-decoration: underline;
   }
+  input{
+    width: 300px;
+    text-align: center;
+    margin-left: 200px;
+    margin-top: 10px;
+  }
+  button{
+    margin-left: 200px;
+    margin-top: 10px;
+    width: 300px;
+    text-align: center;
+    &:hover{
+      background-color: #eee;
+    }
+  }
 }
 
 .ng-scope li{
   list-style-type: none;
   width: 300px;
+  display: inline-block;
+  margin: 10px;
   height: 250px;
   position: relative;
-  //border: 2px solid blue;
+  box-shadow:  6px 6px 28px 0px rgba(50, 50, 50, 0.75);
   background-color: black;
+  &:hover{
+    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+  }
   a{
 
     color: white;
@@ -48,9 +77,12 @@ body {
     padding: 10px;
     background-color: black;
     width: 300px;
-  //  opacity: .7;
-    margin-top: -10px;
+    opacity: .7;
+    margin-top: -58px;
     position: absolute;
+    &:hover{
+      opacity: .9;
+    }
   }
 
   }
