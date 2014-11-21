@@ -28,13 +28,13 @@
 
    }]);
 
-$(".ng-scope").hover(function(){
-    $('.editer').show();
-},function(){
-    $('.editer').hide();
-});
+// t = miles per day
+// d = workdays per month
+// g = mpg
+//p = $price per gallon
+//k = monthly parking
 
-
+//gas expense per month= [(t*d)(g*p)+k]
 
 }());
 
@@ -91,6 +91,7 @@ $(".ng-scope").hover(function(){
     function( giftsFactory,  $scope,  $location,  $rootScope){
 
      giftsFactory.getHoods().success(function(data){
+       console.log(data);
        $scope.hoods = data;
 
           });
