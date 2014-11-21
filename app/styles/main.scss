@@ -11,16 +11,63 @@ body {
 
 .hero-unit {
   margin: 50px auto 0 auto;
-  width: 600px;
+  width: 800px;
   font-size: 18px;
   font-weight: 200;
   line-height: 30px;
   background-color: hsla(167, 100%, 50%, 1);
   border-radius: 6px;
   padding: 60px;
+
   h1 {
     font-size: 60px;
     line-height: 1;
     letter-spacing: -1px;
   }
+  a{
+    font-weight: bold;
+    text-decoration: none;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+}
+
+.ng-scope li{
+  list-style-type: none;
+  width: 300px;
+  height: 250px;
+  position: relative;
+  //border: 2px solid blue;
+  background-color: black;
+  a{
+
+    color: white;
+  }
+  p{
+    padding: 10px;
+    background-color: black;
+    width: 300px;
+  //  opacity: .7;
+    margin-top: -10px;
+    position: absolute;
+  }
+
+  }
+.photo{
+  width: 300px;
+  height: 250px;
+}
+.editer{
+ height: 50px;
+ width: 50px;
+ position: absolute;
+ margin-top: -260px;
+ margin-left: 250px;
+ color: #eee;
+ opacity: 0.7;
+ text-decoration: none;
+ &:hover{
+   opacity: .9;
+ }
 }

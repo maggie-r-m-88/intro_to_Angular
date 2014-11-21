@@ -28,5 +28,12 @@
 
    }]);
 
+$(".ng-scope").hover(function(){
+    $('.editer').show();
+},function(){
+    $('.editer').hide();
+});
+
+
 
 }());

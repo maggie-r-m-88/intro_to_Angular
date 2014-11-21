@@ -1,6 +1,7 @@
 <ul>
   <li ng-repeat="hood in hoods" >
-<a href="#/single/{{hood._id}}"><img src="{{hood.image}}"/>{{hood.name}} : {{ hood.description}}</a><br>
-<a href="#/edit/{{hood._id}}">Edit</a>
+<a href="#/single/{{hood._id}}"><img class="photo" src="{{hood.image}}"/>
+  <p>{{hood.name}} <!--{{ hood.description}}--></p></a><br>
+<a class="editer" href="#/edit/{{hood._id}}">edit</a>
   </li>
 </ul>
