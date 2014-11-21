@@ -7,22 +7,22 @@
 
 
      $routeProvider.when('/', {
-       templateUrl: 'templates/home.html',
+       templateUrl: '/home.html',
        controller: 'GiftsController'
      });
 
      $routeProvider.when('/single/:id',{
-       templateUrl: 'templates/viewsingle.html',
+       templateUrl: '/viewsingle.html',
        controller:  'GiftsController'
      });
 
      $routeProvider.when('/add', {
-       templateUrl:'templates/add.html',
+       templateUrl:'/add.html',
        controller:'GiftsController'
      });
 
      $routeProvider.when('/edit/:id', {
-       templateUrl: 'templates/single.html',
+       templateUrl: '/single.html',
        controller: 'SingleController'
      });
 
