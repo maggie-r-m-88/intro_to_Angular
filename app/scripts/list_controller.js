@@ -6,6 +6,7 @@
     function( giftsFactory,  $scope,  $location,  $rootScope){
 
      giftsFactory.getHoods().success(function(data){
+       console.log(data);
        $scope.hoods = data;
 
           });
