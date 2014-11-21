@@ -1,5 +1,6 @@
-<div class="something">
-  <p ng-repeat="person in people" ng-click="viewMore(person)">
-    {{ $index + 1 }} - Hi, my name is {{ person.name }} and I am {{ person.age }} years old.
-  </p>
-</div>
+<ul>
+  <li ng-repeat="hood in hoods" >
+<a href="#/single/{{hood._id}}"><img src="{{hood.image}}"/>{{hood.name}} : {{ hood.description}}</a><br>
+<a href="#/edit/{{hood._id}}">Edit</a>
+  </li>
+</ul>

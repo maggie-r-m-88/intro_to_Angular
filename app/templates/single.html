@@ -1,17 +1,15 @@
-<!--<h2>{{ person.name }}, {{ person.age }}</h2>
-<p>{{ person.bio }}</p>
-( <a ng-click="removePerson( person )">delete</a> )-->
 
 
-<form ng-submit="updatePerson()">
-<br />
+<div>
 
-  <input ng-model="person.name" type="text" value="{{ person.name }}" /><br /><br />
+  <input type="text" ng-model="hood.name" placeholder="Neighborhood"/><br>
+  <input type="text" ng-model="hood.image" placeholder="Image URL"/><br>
+  <input type="text" ng-model="hood.description" placeholder="Description"/><br>
 
-  <input ng-model="person.age" type="text" value="{{ person.age}}" /><br /><br />
 
-  <textarea ng-model="person.bio" value="{{ person.bio}}"></textarea><br /><br />
+  <button ng-click="editHood(hood)">Save</button>
+  <button ng-click="deleteHood(hood)">Delete</button>
 
-  <button>Update Person</button>
 
-</form>
+
+</div>

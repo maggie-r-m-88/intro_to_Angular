@@ -1,21 +1,26 @@
+
 (function () {
 
-  angular.module('PeopleList')
+  angular.module('HoodList')
   .controller('SingleController',
-    ['$scope', '$routeParams', '$http', 'appUrl', function ($scope, $routeParams, $http, appUrl) {
+          ['$scope','$routeParams','$location','giftsFactory','$rootScope',
+  function ($scope,  $routeParams,  $location,  giftsFactory,  $rootScope) {
 
-      $http.get(appUrl + $routeParams.pid).success( function (data) {
-        $scope.person = data;
+    giftsFactory.getHood($routeParams.id).success( function (data) {
+      $scope.hood = data;
+    });
+
+    $scope.editHood = function(hood) {
+      giftsFactory.editHood(hood);
+      $rootScope.$on('hood:edited', function (){
+        $location.path('/');
       });
+    }
 
-      $scope.updatePerson = function (person) {
-
-        $http.put(appUrl + person._id, person).success( function (data) {
-          $location.path('/');
-        });
-
+    $scope.deleteHood = function(hood) {
+      giftsFactory.deleteHood(hood);
+        $location.path('/');
       };
-
 
 
 

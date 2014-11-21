@@ -1,28 +1,32 @@
+
 (function (){
+   var app = angular.module('HoodList', ['ngRoute']);
 
-  angular.module('PeopleList', ['ngRoute'])
+   app.config( ['$routeProvider',
+       function ($routeProvider){
 
-  .constant ({
-    'appUrl': 'http://tiy-atl-fe-server.herokuapp.com/collections/magpeople22/'
-  })
 
-  .config( function ($routeProvider) {
+     $routeProvider.when('/', {
+       templateUrl: 'templates/home.html',
+       controller: 'GiftsController'
+     });
 
-    $routeProvider.when('/', {
-      templateUrl: 'templates/home.html',
-      controller: 'ListController'
-    });
+     $routeProvider.when('/single/:id',{
+       templateUrl: 'templates/viewsingle.html',
+       controller:  'GiftsController'
+     });
 
-    $routeProvider.when('/add', {
-      templateUrl: 'templates/add.html',
-      controller: 'AddController'
-    });
+     $routeProvider.when('/add', {
+       templateUrl:'templates/add.html',
+       controller:'GiftsController'
+     });
 
-    $routeProvider.when('/single/:pid', {
-      templateUrl: 'templates/single.html',
-      controller: 'SingleController'
-    });
+     $routeProvider.when('/edit/:id', {
+       templateUrl: 'templates/single.html',
+       controller: 'SingleController'
+     });
 
-  });
+   }]);
+
 
 }());

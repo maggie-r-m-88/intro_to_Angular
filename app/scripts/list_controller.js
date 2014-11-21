@@ -1,19 +1,25 @@
+
 (function (){
+  angular.module('HoodList')
+  .controller('GiftsController',
+            ['giftsFactory','$scope','$location','$rootScope',
+    function( giftsFactory,  $scope,  $location,  $rootScope){
 
-  angular.module('PeopleList')
+     giftsFactory.getHoods().success(function(data){
+       $scope.hoods = data;
 
-  .controller('ListController',
-    ['$scope', '$http', '$location', 'appUrl', function ($scope, $http, $location, appUrl) {
+          });
+     $scope.addHood = function(hood) {
+       giftsFactory.addHood(hood);
+       $rootScope.$on('hood:added', function(){
+         $location.path('/');
+       });
 
-    $http.get(appUrl).success( function (results){
-      $scope.people = results;
-    });
 
-    $scope.viewMore = function (person) {
-      $location.path('/single/' + person._id);
-    };
 
+     }
 
   }]);
+
 
 }());
