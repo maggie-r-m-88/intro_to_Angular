@@ -1,6 +1,6 @@
 
 (function (){
-   var app = angular.module('HolidayList', ['ngRoute']);//setter
+   var app = angular.module('HoodList', ['ngRoute']);
 
    app.config( ['$routeProvider',
        function ($routeProvider){
@@ -12,7 +12,7 @@
      });
 
      $routeProvider.when('/single/:id',{
-       templateUrl: 'templates/single.html',
+       templateUrl: 'templates/viewsingle.html',
        controller:  'GiftsController'
      });
 
@@ -28,48 +28,55 @@
 
    }]);
 
+$(".ng-scope").hover(function(){
+    $('.editer').show();
+},function(){
+    $('.editer').hide();
+});
+
+
 
 }());
 
 (function (){
-  angular.module('HolidayList')
+  angular.module('HoodList')
   .factory('giftsFactory',
   ['$rootScope','$http', function
    ($rootScope,  $http) {
 
-    var url ="http://tiy-atl-fe-server.herokuapp.com/collections/vicholidaylist/";
+    var url ="http://tiy-atl-fe-server.herokuapp.com/collections/magsholidaylist2/";
 
-    function getGifts () {
+    function getHoods () {
       return $http.get(url);
       }
 
-      function getGift (id) {
+      function getHood (id) {
         return $http.get(url + id);
       }
 
-      function addGift(gift) {
-        return $http.post(url, gift).then(function(){
-          $rootScope.$broadcast('gift:added');
+      function addHood(hood) {
+        return $http.post(url, hood).then(function(){
+          $rootScope.$broadcast('hood:added');
         });
       }
 
-      function editGift(gift) {
-        return $http.put(url + gift._id, gift).then(function(){
-          $rootScope.$broadcast('gift:editted');
+      function editHood(hood) {
+        return $http.put(url + hood._id, hood).then(function(){
+          $rootScope.$broadcast('hood:edited');
         });
       }
 
-      function deleteGift(gift) {
-        return $http.delete(url + gift._id, gift);
+      function deleteHood(hood) {
+        return $http.delete(url + hood._id, hood);
       };
 
       return {
 
-        getGifts: getGifts,
-        getGift: getGift,
-        addGift: addGift,
-        editGift: editGift,
-        deleteGift: deleteGift
+        getHoods: getHoods,
+        getHood: getHood,
+        addHood: addHood,
+        editHood: editHood,
+        deleteHood: deleteHood
       };
 
   }]);
@@ -78,18 +85,18 @@
 
 
 (function (){
-  angular.module('HolidayList')
+  angular.module('HoodList')
   .controller('GiftsController',
             ['giftsFactory','$scope','$location','$rootScope',
     function( giftsFactory,  $scope,  $location,  $rootScope){
 
-     giftsFactory.getGifts().success(function(data){
-       $scope.gifts = data;
+     giftsFactory.getHoods().success(function(data){
+       $scope.hoods = data;
 
           });
-     $scope.addGift = function(gift) {
-       giftsFactory.addGift(gift);
-       $rootScope.$on('gift:added', function(){
+     $scope.addHood = function(hood) {
+       giftsFactory.addHood(hood);
+       $rootScope.$on('hood:added', function(){
          $location.path('/');
        });
 
@@ -105,24 +112,24 @@
 
 (function () {
 
-  angular.module('HolidayList')
-  .controller('EditController',
+  angular.module('HoodList')
+  .controller('SingleController',
           ['$scope','$routeParams','$location','giftsFactory','$rootScope',
   function ($scope,  $routeParams,  $location,  giftsFactory,  $rootScope) {
 
-    giftsFactory.getGift($routeParams.id).success( function (data) {
-      $scope.gift = data;
+    giftsFactory.getHood($routeParams.id).success( function (data) {
+      $scope.hood = data;
     });
 
-    $scope.editGift = function(gift) {
-      giftsFactory.editGift(gift);
-      $rootScope.$on('gift:edited', function (){
+    $scope.editHood = function(hood) {
+      giftsFactory.editHood(hood);
+      $rootScope.$on('hood:edited', function (){
         $location.path('/');
       });
     }
 
-    $scope.deleteGift = function(gift) {
-      giftsFactory.deleteGift(gift);
+    $scope.deleteHood = function(hood) {
+      giftsFactory.deleteHood(hood);
         $location.path('/');
       };
 
