@@ -1,115 +1,131 @@
-(function () {
+
+(function (){
+   var app = angular.module('HolidayList', ['ngRoute']);//setter
+
+   app.config( ['$routeProvider',
+       function ($routeProvider){
 
 
-  var app = angular.module('CelebList', ['ngRoute', 'restangular']);
+     $routeProvider.when('/', {
+       templateUrl: 'templates/home.html',
+       controller: 'GiftsController'
+     });
 
-  app.config( function ($routeProvider, RestangularProvider) {
+     $routeProvider.when('/single/:id',{
+       templateUrl: 'templates/single.html',
+       controller:  'GiftsController'
+     });
 
-    RestangularProvider.setBaseUrl('http://tiy-atl-fe-server.herokuapp.com/collections/');
+     $routeProvider.when('/add', {
+       templateUrl:'templates/add.html',
+       controller:'GiftsController'
+     });
 
+     $routeProvider.when('/edit/:id', {
+       templateUrl: 'templates/single.html',
+       controller: 'SingleController'
+     });
 
-    $routeProvider.when('/', {
-      templateUrl: 'templates/home.html',
-      controller: 'CelebsController'
-    });
-
-    $routeProvider.when('/single/:id', {
-      templateUrl: 'templates/single.html',
-      controller: 'SingleController'
-    });
-
-    $routeProvider.when('/add', {
-      templateUrl: 'templates/add.html',
-      controller: 'CelebsController'
-    })
-
-  });
+   }]);
 
 
-
-}());
-
-(function () {
-
-  angular.module('CelebList')
-    .factory('celebsFactory', ['$rootScope', 'Restangular', function ($rootScope, Restangular) {
-
-      var celebsBase = Restangular.all('celeblist');
-
-      function getCelebs () {
-        // return $http.get(url);
-        return celebsBase.getList();
-      }
-
-      function getCeleb (id) {
-        //return $http.get(url + id);
-        return celebsBase.get(id);
-      }
-
-      function addCeleb (celeb) {
-        // $http.post(url, gift).success( function () {
-        //   $rootScope.$broadcast('gift:added');
-        // });
-        celebsBase.post(celeb).then( function () {
-          $rootScope.$broadcast('celeb:added');
-        });
-      }
-
-      return {
-
-        getCelebs: getCelebs,
-        getCeleb: getCeleb,
-        addCeleb: addCeleb
-
-      };
-
-    }]);
-
-}());
-
-(function () {
-
-  angular.module('CelebList')
-    .controller('CelebsController',
-      ['celebsFactory', '$scope', '$location', '$rootScope',
-        function (celebsFactory, $scope, $location, $rootScope) {
-
-        celebsFactory.getCelebs().then( function (results) {
-          $scope.celebs = results;
-        });
-
-        $scope.addCeleb = function (celeb) {
-          celebsFactory.addCeleb(celeb);
-
-          $rootScope.$on('celeb:added', function () {
-            $location.path('/');
-          });
-
-
-          $scope.viewMore = function (celeb) {
-            $location.path('/single/' + celeb._id);
-          };
-
-        }
-
-
-    }]);
 }());
 
 (function (){
+  angular.module('HolidayList')
+  .factory('giftsFactory',
+  ['$rootScope','$http', function
+   ($rootScope,  $http) {
 
-  angular.module('CelebList')
+    var url ="http://tiy-atl-fe-server.herokuapp.com/collections/vicholidaylist/";
 
-  .controller('ListController',
-    ['celebsFactory', '$scope', '$location',  '$rootScope', function (celebsFactory, $scope, $location, $rootScope) {
+    function getGifts () {
+      return $http.get(url);
+      }
 
-    celebsFactory.getCelebs().then( function (results){
-      $scope.celebs = results;
+      function getGift (id) {
+        return $http.get(url + id);
+      }
+
+      function addGift(gift) {
+        return $http.post(url, gift).then(function(){
+          $rootScope.$broadcast('gift:added');
+        });
+      }
+
+      function editGift(gift) {
+        return $http.put(url + gift._id, gift).then(function(){
+          $rootScope.$broadcast('gift:editted');
+        });
+      }
+
+      function deleteGift(gift) {
+        return $http.delete(url + gift._id, gift);
+      };
+
+      return {
+
+        getGifts: getGifts,
+        getGift: getGift,
+        addGift: addGift,
+        editGift: editGift,
+        deleteGift: deleteGift
+      };
+
+  }]);
+
+}());
+
+
+(function (){
+  angular.module('HolidayList')
+  .controller('GiftsController',
+            ['giftsFactory','$scope','$location','$rootScope',
+    function( giftsFactory,  $scope,  $location,  $rootScope){
+
+     giftsFactory.getGifts().success(function(data){
+       $scope.gifts = data;
+
+          });
+     $scope.addGift = function(gift) {
+       giftsFactory.addGift(gift);
+       $rootScope.$on('gift:added', function(){
+         $location.path('/');
+       });
+
+
+
+     }
+
+  }]);
+
+
+}());
+
+
+(function () {
+
+  angular.module('HolidayList')
+  .controller('EditController',
+          ['$scope','$routeParams','$location','giftsFactory','$rootScope',
+  function ($scope,  $routeParams,  $location,  giftsFactory,  $rootScope) {
+
+    giftsFactory.getGift($routeParams.id).success( function (data) {
+      $scope.gift = data;
     });
 
-    $scope.viewMore = function (celeb) {
-      $location.path('/single/' + person._id);
-    };
+    $scope.editGift = function(gift) {
+      giftsFactory.editGift(gift);
+      $rootScope.$on('gift:edited', function (){
+        $location.path('/');
+      });
+    }
+
+    $scope.deleteGift = function(gift) {
+      giftsFactory.deleteGift(gift);
+        $location.path('/');
+      };
+
 
 
   }]);
